@@ -1,0 +1,24 @@
+These instructions assume you have docker installed on your machine, and properly pulled the current GitHub repository.
+
+1. Create the Docker Container
+	a) Open up a terminal window
+	b) Navigate to the flask-app directory (cd ~/CSC395_Team-5/flask-app)
+	c) Once inside the directory, run the following commands:
+		- docker build -t python-web-server
+		- docker run -p 5000:5000 -v $(pwd)/app:/app flask-container
+	d) docker run will freeze you inside the terminal. To proceed, hit 'CTRL +C' to quit
+	e) If you run 'docker ps', your container will not show up as it is no longer running. If you run 'docker ps -a '. Your container should be there under the name 'python-web-server' and show that the container was exited. 
+	f) Now you need to start the container again. Type 'docker run python-web-server' into the terminal
+	g) If you run 'docker ps' again, it should now show the container. 
+	
+2. Install ngrok
+	a) Open ngrok.com in your web browser
+	b) Click sign up for free and make an account by connecting it straight to GitHub
+	c) Once logged in, it will direct you to a page to install ngrok. Copy and paste the commands into the terminal and you should be good to go
+	
+3. Open the port
+	a) Open up a terminal window
+	b) run the command 'ngrok http 5000'
+	c) This will bring you to a different terminal window that lists a bunch of information.
+	d) Copy the link next to 'Forwarding:' and open it in your browser of choice.
+	
