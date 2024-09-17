@@ -6,10 +6,15 @@
     <title>Input Form</title>
 </head>
 <body>
-    <form action="/submit" method="POST">
+    <h2>Enter Your Name</h2>
+    <form action="/" method="POST">
         <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" value="{{ name if name else '' }}">
         <button type="submit">Submit</button>
     </form>
+
+    {% if greeting %}
+        <p>{{ greeting }}</p>
+    {% endif %}
 </body>
 </html>
