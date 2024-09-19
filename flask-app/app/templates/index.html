@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>AgIle Recipe Builder</title>
 </head>
-<body>
-    <h2>AgIle Recipe Builder</h2>
-    <form action="/" method="POST">
-        <label for="name">Enter your ingredients:</label>
-        <input type="text" id="name" name="name" value="{{ name if name else '' }}">
-        <button type="submit">Find Recipes</button>
-    </form>
 
-    {% if greeting %}
-        <p>{{ greeting }}</p>
-    {% endif %}
+<body>
+    <div class="centered-container">
+        <div class="centered-content">
+            <h2>Welcome to AgIle Recipe Builder!</h2>
+            <form action="/" method="POST">
+                <label for="name">Enter your ingredients:</label>
+                <input type="text" id="name" class="text-box" name="name" value="{{ name if name else '' }}">
+                <button type="submit">Find Recipes</button>
+            </form>
+
+            {% if greeting %}
+                <p>{{ greeting }}</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
+
+
 </html>

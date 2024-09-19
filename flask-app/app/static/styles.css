@@ -1,0 +1,23 @@
+/* styles.css */
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.centered-content {
+    width: 500px;
+    padding: 50px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.text-box {
+    width: 400px;  /* Set width */
+    height: 40px;  /* Set height */
+    line-height: 40px; /* Match this with the height */
+    padding: 5px;  /* Optional: add some padding */
+    font-size: 16px;  /* Optional: set font size */
+}
