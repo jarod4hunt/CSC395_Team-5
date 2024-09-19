@@ -6,11 +6,11 @@
     <title>Input Form</title>
 </head>
 <body>
-    <h2>Enter Your Name</h2>
+    <h2>AgIle Recipe Builder</h2>
     <form action="/" method="POST">
-        <label for="name">Enter your name:</label>
+        <label for="name">Enter your ingredients:</label>
         <input type="text" id="name" name="name" value="{{ name if name else '' }}">
-        <button type="submit">Submit</button>
+        <button type="submit">Find Recipes</button>
     </form>
 
     {% if greeting %}
