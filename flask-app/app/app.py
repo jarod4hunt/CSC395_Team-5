@@ -22,15 +22,19 @@ def requires_auth(f):
 @app.route('/', methods=['GET', 'POST'])
 @requires_auth
 def index():
-    name = None
+    ingredients = None
     greeting = None
     
     if request.method == 'POST':
-        name = request.form['name']
-        greeting = f'Hello, {name}!'
+        ingredients = request.form['name']
+        greeting = f'Finding recipes with {ingredients}!'
     
-    return render_template('index.html', name=name, greeting=greeting)
+    return render_template('index.html', name=ingredients, greeting=greeting)
    
+
+
+
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
