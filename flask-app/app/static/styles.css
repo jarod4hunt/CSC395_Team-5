@@ -16,8 +16,13 @@
 
 .text-box {
     width: 400px;  /* Set width */
-    height: 40px;  /* Set height */
-    line-height: 40px; /* Match this with the height */
+    height: 80px;  /* Set height */
+    line-height: 30px; /* Match this with the height */
     padding: 5px;  /* Optional: add some padding */
     font-size: 16px;  /* Optional: set font size */
+}
+
+.large_label {
+    font-size: 20px; /* Set the font size to 20px */
+    font-weight: bold; /* Optional: Make it bold */
 }

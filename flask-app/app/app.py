@@ -31,9 +31,14 @@ def index():
     
     return render_template('index.html', name=ingredients, greeting=greeting)
    
+#Get Ollama response 
+def ollama():
 
+    return
 
-
+#Extra Credit - Get Response from other AIs
+def AI2(): return
+def AI3(): return
 
 
 if __name__ == "__main__":
