@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, abort, Response
+from flask import Flask, render_template, request, Response
+
 app = Flask(__name__)
 
 # Basic Authentication
@@ -22,26 +23,29 @@ def requires_auth(f):
 @app.route('/', methods=['GET', 'POST'])
 @requires_auth
 def index():
-    ingredients = None
-    greeting = None
-    
+    user_input = ""
+    ollama_response = ""
     if request.method == 'POST':
-        ingredients = request.form['name']
-        greeting = f'Finding recipes with {ingredients}!'
-    
-    return render_template('index.html', name=ingredients, greeting=greeting)
-   
-#Get Ollama response 
-def ollama():
+        user_input = request.form.get('user_input')
+        ollama_response = ollama(user_input)
+    return render_template('index.html', user_input=user_input, ollama_response=ollama_response)
 
-    return
+@app.route('/submit', methods=['POST'])
+def submit():
+    user_input = request.form.get('user_input')
+    ollama_response = ollama(user_input).replace('\n', '<br>')
+    return render_template('index.html', user_input=user_input, ollama_response=ollama_response)
 
-#Extra Credit - Get Response from other AIs
-def AI2(): return
-def AI3(): return
-
+# Get Ollama response 
+def ollama(user_input):
+    try:
+        # Simulate calling Ollama and returning a response based on input
+        response = """ Recipes from Ollama with your ingredients: 
+        pizza
+        """
+        return response.replace('\n', '<br>')
+    except:
+        return "There was an error contacting Ollama"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-
-

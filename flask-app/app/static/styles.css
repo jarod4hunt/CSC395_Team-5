@@ -14,13 +14,18 @@
     text-align: center;
 }
 
+
 .text-box {
-    width: 400px;  /* Set width */
-    height: 80px;  /* Set height */
+    width: 400px;  /* Full width */
+    padding: 60px;  /* Add some padding */
+    box-sizing: border-box;  /* Ensure padding doesn't affect width */
     line-height: 30px; /* Match this with the height */
     padding: 5px;  /* Optional: add some padding */
-    font-size: 16px;  /* Optional: set font size */
+    font-size: 14px;  /* Optional: set font size */
+    resize: none;  
+    overflow: auto;  /* Add scroll if necessary */
 }
+
 
 .large_label {
     font-size: 20px; /* Set the font size to 20px */

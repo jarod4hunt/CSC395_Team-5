@@ -6,23 +6,40 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>AgIle Recipe Builder</title>
 </head>
-
 <body>
     <div class="centered-container">
         <div class="centered-content">
             <h2>Welcome to AgIle Recipe Builder!</h2>
+
             <form action="/" method="POST">
-                <label for="name" class="large_label">Enter your ingredients:</label>
-                <input type="text" id="name" class="text-box" name="name" value="{{ name if name else '' }}">
-                <button type="submit">Find Recipes</button>
+                <label for="user_input" class="large_label">Enter your ingredients:</label>
+                <textarea id="user_input" class="text-box" name="user_input" rows="4" required>{{ user_input }}</textarea>
+                <div class="button-container">
+                    <button type="submit">Find Recipes</button>
+                </div>
             </form>
 
-            {% if greeting %}
-                <p>{{ greeting }}</p>
-            {% endif %}
+            <div id="display-section">
+                {% if ollama_response %}
+                    <p id="response">{{ ollama_response|safe }}</p>
+                {% endif %}
+            </div>            
+
+            <script>
+                // Loading animation setup
+                let loadingText = "";
+                let loadingInterval = setInterval(function() {
+                    loadingText += ".";
+                    if (loadingText.length > 3) {
+                        loadingText = ""; // Reset after three dots
+                    }
+                    if (!document.getElementById("response").innerText) {
+                        document.getElementById("message").innerText = "Finding recipes with your ingredients" + loadingText;
+                    }
+                }, 500); // Update every 500ms
+            </script>
+
         </div>
     </div>
 </body>
-
-
 </html>
