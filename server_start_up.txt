@@ -5,7 +5,7 @@ These instructions assume you have docker installed on your machine, and properl
 	b) Navigate to the flask-app directory (cd ~/CSC395_Team-5/flask-app)
 	c) Once inside the directory, run the following commands:
 		- docker build -t python-web-server
-		- docker run -p 5000:5000 -v $(pwd)/app:/app flask-container
+		- docker run -p 5000:5000 -v $(pwd)/app:/app python-web-server
 	d) docker run will freeze you inside the terminal. To proceed, hit 'CTRL +C' to quit
 	e) If you run 'docker ps', your container will not show up as it is no longer running. If you run 'docker ps -a '. Your container should be there under the name 'python-web-server' and show that the container was exited. 
 	f) Now you need to start the container again. Type 'docker run python-web-server' into the terminal
