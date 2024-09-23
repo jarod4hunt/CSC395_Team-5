@@ -46,7 +46,7 @@ def submit_json():
 def ollama(user_input):
     try:
         # Send the input to the Ollama Flask app
-        response = requests.post("http://ollama_flask:5001/ollama-endpoint", json={"query": user_input})
+        response = requests.post("http://ollama:5001", json={"query": user_input})
 
         if response.status_code == 200:
             return response.json().get("response").replace('\n', '<br>')
