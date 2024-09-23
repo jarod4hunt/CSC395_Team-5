@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./flask-app  # Specify the build context for your Flask app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask-app/app:/app  # Mount local ./flask-app/app directory to /app in the container
+    working_dir: /app  # Set working directory to /app
+    environment:
+      - ENV=development
+    depends_on:
+      - ollama  # Ensure the Ollama container starts before this one
+
+  ollama:
+    build:
+      context: ./ollama_flask  # Specify the build context for the Ollama service
+    ports:
+      - "5001:5001"  # Expose Ollama on port 5001
+    environment:
+      - ENV=production
+
