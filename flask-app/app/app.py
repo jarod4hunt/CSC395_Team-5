@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, jsonify
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ def authenticate():
         {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 def requires_auth(f):
+    @wraps(f)  # This will preserve the original function's name
     def decorated(*args, **kwargs):
         auth = request.authorization
         if not auth or not check_auth(auth.username, auth.password):
@@ -26,15 +28,19 @@ def index():
     user_input = ""
     ollama_response = ""
     if request.method == 'POST':
-        user_input = request.form.get('user_input')
+        user_input = request.form.get('user_input')  # For standard form submission
         ollama_response = ollama(user_input)
     return render_template('index.html', user_input=user_input, ollama_response=ollama_response)
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    user_input = request.form.get('user_input')
-    ollama_response = ollama(user_input).replace('\n', '<br>')
-    return render_template('index.html', user_input=user_input, ollama_response=ollama_response)
+@app.route('/submit_json', methods=['POST'])
+@requires_auth
+def submit_json():
+    # Get JSON data from the request
+    data = request.get_json()
+    user_input = data.get('user_input', '')  # Get the user input from the JSON data
+    ollama_response = ollama(user_input)  # Process input with the ollama function
+    # Return a JSON response
+    return jsonify({'message': ollama_response})
 
 # Get Ollama response 
 def ollama(user_input):
@@ -44,8 +50,8 @@ def ollama(user_input):
         pizza
         """
         return response.replace('\n', '<br>')
-    except:
-        return "There was an error contacting Ollama"
+    except Exception as e:
+        return f"There was an error contacting Ollama: {e}"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

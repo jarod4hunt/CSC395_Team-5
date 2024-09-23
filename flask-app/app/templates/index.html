@@ -11,7 +11,7 @@
         <div class="centered-content">
             <h2>Welcome to AgIle Recipe Builder!</h2>
 
-            <form action="/" method="POST">
+            <form id="ingredient-form" action="/" method="POST">
                 <label for="user_input" class="large_label">Enter your ingredients:</label>
                 <textarea id="user_input" class="text-box" name="user_input" rows="4" required>{{ user_input }}</textarea>
                 <div class="button-container">
@@ -22,21 +22,72 @@
             <div id="display-section">
                 {% if ollama_response %}
                     <p id="response">{{ ollama_response|safe }}</p>
+                {% else %}
+                    <p id="response"></p> <!-- Ensure this exists even if empty -->
                 {% endif %}
-            </div>            
+            </div>
+
+            <div id="loading-message"></div>
 
             <script>
-                // Loading animation setup
-                let loadingText = "";
-                let loadingInterval = setInterval(function() {
-                    loadingText += ".";
-                    if (loadingText.length > 3) {
-                        loadingText = ""; // Reset after three dots
-                    }
-                    if (!document.getElementById("response").innerText) {
-                        document.getElementById("message").innerText = "Finding recipes with your ingredients" + loadingText;
-                    }
-                }, 500); // Update every 500ms
+                document.addEventListener('DOMContentLoaded', function() {
+                    const responseElement = document.getElementById('response');
+                    const loadingMessageElement = document.getElementById('loading-message');
+                    let loadingInterval;
+
+                    // Handle form submission using JSON
+                    document.getElementById('ingredient-form').addEventListener('submit', function(event) {
+                        event.preventDefault(); // Prevent form submission refresh
+            
+                        const user_input = document.getElementById('user_input').value;
+            
+                        // Debugging: Log the user input
+                        console.log("User Input:", user_input);
+            
+                        // Clear previous response and show loading message
+                        responseElement.innerHTML = ""; // Clear previous response
+                        loadingMessageElement.innerText = "Finding recipes with your ingredients...";
+
+                        // Start loading animation
+                        let loadingText = "";
+                        loadingInterval = setInterval(function() {
+                            loadingText += ".";
+                            if (loadingText.length > 3) {
+                                loadingText = ""; // Reset after three dots
+                            }
+                            loadingMessageElement.innerText = "Finding recipes with your ingredients" + loadingText;
+                        }, 500); // Update every 500ms
+            
+                        // Send JSON data via fetch
+                        fetch('/submit_json', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                'user_input': user_input
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Update the display section with the response
+                            responseElement.innerHTML = data.message;
+                            loadingMessageElement.innerText = ""; // Clear loading message
+                            clearInterval(loadingInterval); // Stop loading animation
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            responseElement.innerHTML = "An error occurred: " + error.message;
+                            loadingMessageElement.innerText = ""; // Clear loading message
+                            clearInterval(loadingInterval); // Stop loading animation
+                        });
+                    });
+                });
             </script>
 
         </div>
