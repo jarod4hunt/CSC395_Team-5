@@ -18,7 +18,6 @@ Steps to run application:
 
     Docker should now be installed and you should have permissions to make and run containers
     
-    
     2) Clone this GitHub repository to your machine
 
     3) Open a terminal window and cd into ~/CSC395_Team-5
