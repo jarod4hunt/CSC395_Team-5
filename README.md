@@ -1,6 +1,6 @@
 # CSC395_Team-5
 
-Steps to run application:
+Steps to run application:                   #These steps are for Ubuntu linux. Different operating systems may require modified commands. 
 
     1) Install Docker                       #If you already have Docker installed you can skip this step
         Run these commands:
