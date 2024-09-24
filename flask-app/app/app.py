@@ -1,6 +1,7 @@
 import requests
 from flask import Flask, render_template, request, Response, jsonify
 from functools import wraps
+import json
 
 app = Flask(__name__)
 
@@ -43,17 +44,30 @@ def submit():
         }
         
         response = requests.post(ollama_url, json=data)
-        
+
         # Print raw response for debugging
-        print("Raw response:", response.text)  # Print the raw response
+        print("Status Code:", response.status_code)  # Print the status code
         
         if response.status_code == 200:
-            ollama_response = response.json().get('response', 'No response from Ollama')
+            try:
+                # Handle the chunked response
+                raw_responses = response.text.strip().splitlines()
+                for line in raw_responses:
+                    parsed_line = json.loads(line)
+                    partial_response = parsed_line.get('response', '')
+                    ollama_response += partial_response  # Append partial response to the overall response
+                    print("Partial response:", partial_response)  # Print each chunk of the response
+
+                    # Check if done flag is true
+                    if parsed_line.get('done', False):
+                        break
+
+            except ValueError as e:
+                # Handle the case where JSON parsing fails
+                ollama_response = f"Error parsing JSON: {str(e)}"
         else:
             ollama_response = f"Error communicating with Ollama: {response.status_code} {response.text}"
 
-    except ValueError as e:
-        ollama_response = f"Error parsing JSON: {str(e)}"
     except requests.exceptions.RequestException as e:
         ollama_response = f"Request failed: {str(e)}"
 
