@@ -11,6 +11,7 @@ body {
     align-items: center;
   } 
   #title h1 {
+    font-family: Impact, fantasy;
     position: absolute;
     top: 20px;
     left: 20px;
