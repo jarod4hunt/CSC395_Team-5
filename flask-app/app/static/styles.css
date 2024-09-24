@@ -31,3 +31,7 @@
     font-size: 20px; /* Set the font size to 20px */
     font-weight: bold; /* Optional: Make it bold */
 }
+
+#response {
+    min-height: 50px; /* Reserve space to avoid page jump */
+}

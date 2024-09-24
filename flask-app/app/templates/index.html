@@ -11,39 +11,33 @@
         <div class="centered-content">
             <h2>Welcome to AgIle Recipe Builder!</h2>
 
-            <form id="ingredient-form" action="/" method="POST">
+            <form id="ingredient-form" action="/submit" method="POST">
                 <label for="user_input" class="large_label">Enter your ingredients:</label>
-                <textarea id="user_input" class="text-box" name="user_input" rows="4" required>{{ user_input }}</textarea>
+                <textarea id="user_input" class="text-box" name="user_input" rows="4" required></textarea>
                 <div class="button-container">
                     <button type="submit">Find Recipes</button>
                 </div>
             </form>
 
             <div id="display-section">
-                {% if ollama_response %}
-                    <p id="response">{{ ollama_response|safe }}</p>
-                {% else %}
-                    <p id="response"></p> <!-- Ensure this exists even if empty -->
-                {% endif %}
+                <h3>Response:</h3>
+                <p id="response"></p> <!-- This section will be updated with the response -->
             </div>
 
             <div id="loading-message"></div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
+                    const ingredientForm = document.getElementById('ingredient-form');
                     const responseElement = document.getElementById('response');
                     const loadingMessageElement = document.getElementById('loading-message');
                     let loadingInterval;
 
-                    // Handle form submission using JSON
-                    document.getElementById('ingredient-form').addEventListener('submit', function(event) {
-                        event.preventDefault(); // Prevent form submission refresh
+                    ingredientForm.addEventListener('submit', function(event) {
+                        event.preventDefault(); // Prevent default form submission
             
                         const user_input = document.getElementById('user_input').value;
-            
-                        // Debugging: Log the user input
-                        console.log("User Input:", user_input);
-            
+
                         // Clear previous response and show loading message
                         responseElement.innerHTML = ""; // Clear previous response
                         loadingMessageElement.innerText = "Finding recipes with your ingredients...";
@@ -59,12 +53,12 @@
                         }, 500); // Update every 500ms
             
                         // Send JSON data via fetch
-                        fetch('/submit_json', {
+                        fetch('/submit', {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
                             },
-                            body: JSON.stringify({
+                            body: new URLSearchParams({
                                 'user_input': user_input
                             })
                         })
@@ -72,16 +66,15 @@
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
-                            return response.json();
+                            return response.json(); // Get the JSON response
                         })
                         .then(data => {
                             // Update the display section with the response
-                            responseElement.innerHTML = data.message;
+                            responseElement.innerHTML = data.response; // Insert the response from the server
                             loadingMessageElement.innerText = ""; // Clear loading message
                             clearInterval(loadingInterval); // Stop loading animation
                         })
                         .catch((error) => {
-                            console.error('Error:', error);
                             responseElement.innerHTML = "An error occurred: " + error.message;
                             loadingMessageElement.innerText = ""; // Clear loading message
                             clearInterval(loadingInterval); // Stop loading animation
@@ -89,7 +82,6 @@
                     });
                 });
             </script>
-
         </div>
     </div>
 </body>

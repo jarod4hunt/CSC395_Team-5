@@ -15,7 +15,7 @@ def authenticate():
         {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 def requires_auth(f):
-    @wraps(f)  # This will preserve the original function's name
+    @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.authorization
         if not auth or not check_auth(auth.username, auth.password):
@@ -23,37 +23,42 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 @requires_auth
 def index():
-    user_input = ""
-    ollama_response = ""
-    if request.method == 'POST':
-        user_input = request.form.get('user_input')  # For standard form submission
-        ollama_response = ollama(user_input)
-    return render_template('index.html', user_input=user_input, ollama_response=ollama_response)
+    return render_template('index.html')
 
-@app.route('/submit_json', methods=['POST'])
+@app.route('/submit', methods=['POST'])
 @requires_auth
-def submit_json():
-    # Get JSON data from the request
-    data = request.get_json()
-    user_input = data.get('user_input', '')  # Get the user input from the JSON data
-    ollama_response = ollama(user_input)  # Process input with the ollama function
-    # Return a JSON response
-    return jsonify({'message': ollama_response})
+def submit():
+    user_input = request.form.get('user_input')  # Get user input from form
+    ollama_response = ""
 
-def ollama(user_input):
     try:
-        # Send the input to the Ollama Flask app
-        response = requests.post("http://ollama:5001", json={"query": user_input})
-
+        # Make a request to the Ollama container
+        ollama_url = "http://ollama:11434/api/generate"
+        data = { 
+            "model": "gemma2:2b",
+            "prompt": user_input
+        }
+        
+        response = requests.post(ollama_url, json=data)
+        
+        # Print raw response for debugging
+        print("Raw response:", response.text)  # Print the raw response
+        
         if response.status_code == 200:
-            return response.json().get("response").replace('\n', '<br>')
+            ollama_response = response.json().get('response', 'No response from Ollama')
         else:
-            return "Error contacting Ollama service"
-    except Exception as e:
-        return f"There was an error contacting Ollama: {e}"
+            ollama_response = f"Error communicating with Ollama: {response.status_code} {response.text}"
+
+    except ValueError as e:
+        ollama_response = f"Error parsing JSON: {str(e)}"
+    except requests.exceptions.RequestException as e:
+        ollama_response = f"Request failed: {str(e)}"
+
+    # Return a JSON response for the JavaScript to handle
+    return jsonify({'response': ollama_response})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
