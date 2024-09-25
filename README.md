@@ -28,4 +28,8 @@ Steps to run application:                   #These steps are for Ubuntu linux. D
 
     5) Open 'localhost:5000' in any browser
 
-    6) Enjoy!
+    6) Once open, the browser will ask for a username and password for simple authentication
+        - username: csc395
+        - password: team5
+
+    7) Enjoy!
