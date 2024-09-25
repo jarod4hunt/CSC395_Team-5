@@ -26,8 +26,7 @@ services:
     networks:
       - recipe  # Connect to custom network
     volumes:
-      - ollama-models:/root/.ollama/models
-    command: ["ollama", "pull", "gemma2:2b"]
+      - ollama-models:/root/.ollama/modelszz
 
 volumes:
   ollama-models:
