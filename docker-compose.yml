@@ -1,35 +1,34 @@
----
 version: '3'
 
 services:
   app:
     build:
-      context: ./flask-app  # Specify the build context for your Flask app
+      context: ./flask-app
     ports:
       - "5000:5000"
     volumes:
-      - ./flask-app/app:/app  # Mount local ./flask-app/app directory to /app
-    working_dir: /app  # Set working directory to /app
+      - ./flask-app/app:/app
+    working_dir: /app
     environment:
       - ENV=development
     depends_on:
-      - ollama  # Ensure the Ollama container starts before this one
+      - ollama
     networks:
-      - recipe  # Connect to custom network
+      - recipe
 
   ollama:
-    image: csc395_team-5-ollama:latest  # Replace with the actual Ollama Docker image name
+    image: ollama/ollama
     ports:
-      - "11434:11434"  # Expose Ollama on port 11434
-    environment:
-      - ENV=production
-    networks:
-      - recipe  # Connect to custom network
+      - "5001:5001"
     volumes:
-      - ollama-models:/root/.ollama/modelszz
+      - ollama-models:/root/.ollama/models
+    environment:
+      - ENV=development
+    networks:
+      - recipe
 
 volumes:
   ollama-models:
 
 networks:
-  recipe:  # Define the custom network
+  recipe:

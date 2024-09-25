@@ -39,7 +39,7 @@ def submit():
         # Make a request to the Ollama container
         ollama_url = "http://ollama:11434/api/generate"
         data = { 
-            "model": "gemma2:2b",
+            "model": "llama3",
             "prompt": user_input
         }
         
