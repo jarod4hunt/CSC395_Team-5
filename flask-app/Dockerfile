@@ -9,7 +9,6 @@ COPY app/requirements.txt .
 
 # Install any dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y curl
 
 # Copy the rest of the application code into the container at /app
 COPY app/ .

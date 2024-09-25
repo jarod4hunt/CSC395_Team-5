@@ -18,7 +18,7 @@ services:
       - recipe  # Connect to custom network
 
   ollama:
-    image: ollama/ollama  # Replace with the actual Ollama Docker image name
+    image: ollama2  # Replace with the actual Ollama Docker image name
     ports:
       - "11434:11434"  # Expose Ollama on port 11434
     environment:
