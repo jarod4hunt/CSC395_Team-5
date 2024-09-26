@@ -19,7 +19,7 @@ services:
   ollama:
     image: ollama/ollama
     ports:
-      - "5001:5001"
+      - "11434:11434"
     volumes:
       - ollama-models:/root/.ollama/models
     environment:
@@ -31,4 +31,4 @@ volumes:
   ollama-models:
 
 networks:
-  recipe:
+  recipe: {}
