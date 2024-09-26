@@ -8,7 +8,7 @@ Steps to run application:
     2) Clone this GitHub repository to your machine:
         - Open a terminal window and run 'git clone https://github.com/jarod4hunt/CSC395_Team-5.git'
 
-    3) Run the startup script:    #this will take a while the first time it is ran. Subsequent runs will be fast unless project is fully deleted.
+    3) Run the startup script: 
         - cd into CSC395_Team-5
         - run './startup_script.sh'    
 
