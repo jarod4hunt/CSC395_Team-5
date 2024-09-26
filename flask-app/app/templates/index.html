@@ -11,7 +11,7 @@
         <div class="centered-content">
             <h2>Welcome to AgIle Recipe Builder!</h2>
 
-            <form id="ingredient-form" action="/submit" method="POST">
+            <form id="ingredient-form">
                 <label for="user_input" class="large_label">Enter your ingredients:</label>
                 <textarea id="user_input" class="text-box" name="user_input" rows="4" required></textarea>
                 <div class="button-container">
@@ -32,16 +32,16 @@
                     const responseElement = document.getElementById('response');
                     const loadingMessageElement = document.getElementById('loading-message');
                     let loadingInterval;
-
+            
                     ingredientForm.addEventListener('submit', function(event) {
                         event.preventDefault(); // Prevent default form submission
             
                         const user_input = document.getElementById('user_input').value;
-
+            
                         // Clear previous response and show loading message
                         responseElement.innerHTML = ""; // Clear previous response
                         loadingMessageElement.innerText = "Finding recipes with your ingredients...";
-
+            
                         // Start loading animation
                         let loadingText = "";
                         loadingInterval = setInterval(function() {
@@ -52,36 +52,61 @@
                             loadingMessageElement.innerText = "Finding recipes with your ingredients" + loadingText;
                         }, 500); // Update every 500ms
             
-                        // Send JSON data via fetch
-                        fetch('/submit', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: new URLSearchParams({
-                                'user_input': user_input
+                        // Add a 3-second delay before fetching and streaming the response
+                        setTimeout(() => {
+                            // Use fetch with a ReadableStream to process the streamed response
+                            fetch('/submit', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: new URLSearchParams({
+                                    'user_input': user_input
+                                })
                             })
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json(); // Get the JSON response
-                        })
-                        .then(data => {
-                            // Update the display section with the response
-                            responseElement.innerHTML = data.response; // Insert the response from the server
-                            loadingMessageElement.innerText = ""; // Clear loading message
-                            clearInterval(loadingInterval); // Stop loading animation
-                        })
-                        .catch((error) => {
-                            responseElement.innerHTML = "An error occurred: " + error.message;
-                            loadingMessageElement.innerText = ""; // Clear loading message
-                            clearInterval(loadingInterval); // Stop loading animation
-                        });
+                            .then(response => {
+                                const reader = response.body.getReader();
+                                const decoder = new TextDecoder("utf-8");
+            
+                                let hasStarted = false; // Track if the stream has started
+            
+                                function readStream() {
+                                    return reader.read().then(({ done, value }) => {
+                                        if (done) {
+                                            clearInterval(loadingInterval); // Stop loading animation
+                                            loadingMessageElement.innerText = ""; // Clear loading message
+                                            return; // End of stream
+                                        }
+            
+                                        if (!hasStarted) {
+                                            // Remove the loading message when the stream starts
+                                            loadingMessageElement.innerText = "";
+                                            clearInterval(loadingInterval); // Stop the loading animation
+                                            hasStarted = true; // Mark as started
+                                        }
+            
+                                        // Decode and display each chunk as it arrives
+                                        const chunk = decoder.decode(value, { stream: true });
+                                        responseElement.innerHTML += chunk;
+                                        responseElement.scrollTop = responseElement.scrollHeight;  // Auto-scroll to the bottom
+            
+                                        // Continue reading the stream
+                                        return readStream();
+                                    });
+                                }
+            
+                                return readStream();
+                            })
+                            .catch((error) => {
+                                responseElement.innerHTML = "An error occurred: " + error.message;
+                                loadingMessageElement.innerText = ""; // Clear loading message
+                                clearInterval(loadingInterval); // Stop loading animation
+                            });
+                        }, 3000); // Wait for 3 seconds (3000 milliseconds)
                     });
                 });
             </script>
+            
         </div>
     </div>
 </body>

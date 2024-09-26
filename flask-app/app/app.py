@@ -5,7 +5,7 @@ import json
 
 app = Flask(__name__)
 
-# Basic Authentication
+# Basic Authentication - ignore this
 def check_auth(username, password):
     return username == 'csc395' and password == 'team5'
 
@@ -23,56 +23,69 @@ def requires_auth(f):
             return authenticate()
         return f(*args, **kwargs)
     return decorated
+# End of Authentication - ignore this
 
+# Main web page - blank input field
 @app.route('/', methods=['GET'])
 @requires_auth
 def index():
     return render_template('index.html')
 
+# Stream Ollama response line by line
+def stream_ollama_response(prompt):
+    ollama_url = "http://ollama:11434/api/generate"
+    data = {
+        "model": "llama3",
+        "prompt": prompt
+    }
+
+    try:
+        with requests.post(ollama_url, json=data, stream=True) as response:
+            if response.status_code == 200:
+                for chunk in response.iter_lines():
+                    if chunk:
+                        try:
+                            parsed_line = json.loads(chunk.decode('utf-8'))
+                            partial_response = parsed_line.get('response', '')
+                            yield partial_response  # Yield each chunk of the response
+                            print("Partial response:", partial_response)
+
+                            if parsed_line.get('done', False):
+                                break
+                        except ValueError:
+                            yield f"Error parsing JSON: {chunk}"
+            else:
+                yield f"Error communicating with Ollama: {response.status_code} {response.text}"
+    except requests.exceptions.RequestException as e:
+        yield f"Request failed: {str(e)}"
+
+# Runs user input and returns output
 @app.route('/submit', methods=['POST'])
 @requires_auth
 def submit():
-    user_input = request.form.get('user_input')  # Get user input from form
-    ollama_response = ""
+    user_input = request.form.get('user_input')  # Get ingredients from form
 
-    try:
-        # Make a request to the Ollama container
-        ollama_url = "http://ollama:11434/api/generate"
-        data = { 
-            "model": "llama3",
-            "prompt": user_input
-        }
-        
-        response = requests.post(ollama_url, json=data)
+    template = """Please give me a recipe in the following format:
 
-        # Print raw response for debugging
-        print("Status Code:", response.status_code)  # Print the status code
-        
-        if response.status_code == 200:
-            try:
-                # Handle the chunked response
-                raw_responses = response.text.strip().splitlines()
-                for line in raw_responses:
-                    parsed_line = json.loads(line)
-                    partial_response = parsed_line.get('response', '')
-                    ollama_response += partial_response  # Append partial response to the overall response
-                    print("Partial response:", partial_response)  # Print each chunk of the response
+    Recipe Title:
 
-                    # Check if done flag is true
-                    if parsed_line.get('done', False):
-                        break
+    Fun Tagline:
 
-            except ValueError as e:
-                # Handle the case where JSON parsing fails
-                ollama_response = f"Error parsing JSON: {str(e)}"
-        else:
-            ollama_response = f"Error communicating with Ollama: {response.status_code} {response.text}"
+    Ingredient list:
+        - ingredient 1 + measurement
+        - ingredient 2 + measurement
+        - etc....
 
-    except requests.exceptions.RequestException as e:
-        ollama_response = f"Request failed: {str(e)}"
+    Instructions:
+        Step 1)
+        Step 2)
+        etc....    
 
-    # Return a JSON response for the JavaScript to handle
-    return jsonify({'response': ollama_response})
+    with these ingredients:  
+    """
+    prompt = template + user_input  # this is what gets sent to Ollama as input
+
+    return Response(stream_ollama_response(prompt), content_type='text/plain')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
