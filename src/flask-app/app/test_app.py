@@ -31,7 +31,20 @@ class BasicTest(unittest.TestCase):
     
 		assert result == ["Recipe Title:", "Fun Tagline"]
 
+	def test_stream_ollama_response_failure(self):
+		prompt = "Make a cake"
+		mock_response = MagicMock()
+		mock_response.status_code = 500
+		mock_response.text = "Internal Server Error"
 
+		mock_post = MagicMock()
+		mock_post.__enter__.return_value = mock_response
+		mock_post.__exit__.return_value = None
+		
+		with patch('requests.post', return_value=mock_post):
+			result = list(stream_ollama_response(prompt))
+
+		self.assertEqual(result, ["Error communicating with Ollama: 500 Internal Server Error"])
 
 if __name__== '__main__':
 	unittest.main()
