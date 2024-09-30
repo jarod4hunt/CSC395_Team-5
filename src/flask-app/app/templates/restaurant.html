@@ -3,35 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <title>Document</title>
-    <link rel="stylesheet" href="restaurant2.css" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='restaurant2.css') }}">
   </head>
   <body>
     <div id="title">
       <h1>DINNER FOR ONE</h1>
     </div>
+	<form id="ingredient-form">
     <div id="main">
-      <div id="one">
         <h3>CHOOSE YOUR BRAND</h3>    
-        <form name="brand" action="/" method="POST" onsubmit=" ">
-            <div id="one.form">
+            <div class="entry">
                 <label for="brand"></label>
                 <input type="text" id="brand" name="brand">
             </div>
-        </form>
-      </div>
-      <div id="two">
         <h3>CHOOSE YOUR INGREDIENTS</h3>    
-        <form name="ingredients" action="/" method="POST" onsubmit=" ">
-            <div id="two.form">
+            <div class="entry">
                 <label for="ingredients"></label>
                 <input type="text" id="ingredients" name="ingredients">
             </div>
             <div id="button">
                 <input type="submit" name="submit" value="SUBMIT">
             </div>
-        </form>
-      </div>
     </div>
+	</form>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
           const ingredientForm = document.getElementById('ingredient-form');
