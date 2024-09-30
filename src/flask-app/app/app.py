@@ -29,7 +29,7 @@ def requires_auth(f):
 @app.route('/', methods=['GET'])
 @requires_auth
 def index():
-    return render_template('index.html')
+    return render_template('restaurant.html')
 
 # Stream Ollama response line by line
 def stream_ollama_response(prompt):
@@ -63,14 +63,15 @@ def stream_ollama_response(prompt):
 @app.route('/submit', methods=['POST'])
 @requires_auth
 def submit():
-    user_input = request.form.get('user_input')  # Get ingredients from form
-
+    ingredients = request.form.get('ingredients')  # Get ingredients from form
+    brand = request.form.get('brand')
     template = """Please give me a recipe in the following format:
 
+    Brand:
     Recipe Title:
 
     Fun Tagline:
-
+    
     Ingredient list:
         - ingredient 1 + measurement
         - ingredient 2 + measurement
@@ -81,9 +82,9 @@ def submit():
         Step 2)
         etc....    
 
-    with these ingredients:  
+    from the brand:  
     """
-    prompt = template + user_input  # this is what gets sent to Ollama as input
+    prompt = template + brand + " with these ingredients "+ ingredients    # this is what gets sent to Ollama as input
 
     return Response(stream_ollama_response(prompt), content_type='text/plain')
 

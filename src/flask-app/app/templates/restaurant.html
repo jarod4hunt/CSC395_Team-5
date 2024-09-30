@@ -9,8 +9,8 @@
     <div id="title">
       <h1>DINNER FOR ONE</h1>
     </div>
+	<div id="main">
 	<form id="ingredient-form">
-    <div id="main">
         <h3>CHOOSE YOUR BRAND</h3>    
             <div class="entry">
                 <label for="brand"></label>
@@ -24,8 +24,15 @@
             <div id="button">
                 <input type="submit" name="submit" value="SUBMIT">
             </div>
-    </div>
+  
 	</form>
+	 <div class="entry">
+                <h3>Response:</h3>
+                <p id="response"></p> <!-- This section will be updated with the response -->
+            </div>
+
+            <div id="loading-message"></div>
+	</div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
           const ingredientForm = document.getElementById('ingredient-form');
@@ -36,7 +43,8 @@
           ingredientForm.addEventListener('submit', function(event) {
               event.preventDefault(); // Prevent default form submission
   
-              const user_input = document.getElementById('user_input').value;
+              const ingredients = document.getElementById('ingredients').value;
+			  const brand = document.getElementById('brand').value;
   
               // Clear previous response and show loading message
               responseElement.innerHTML = ""; // Clear previous response
@@ -61,7 +69,8 @@
                           'Content-Type': 'application/x-www-form-urlencoded',
                       },
                       body: new URLSearchParams({
-                          'user_input': user_input
+                          'ingredients': ingredients,
+						  'brand': brand 
                       })
                   })
                   .then(response => {
