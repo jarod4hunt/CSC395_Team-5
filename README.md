@@ -31,7 +31,7 @@
 ...
 ## Contributors
 Thanks to the following people who have contributed to this project:
-![Contributors](https://contrib.rocks/image?repo=yourusername/yourrepository)
+![Contributors](https://contrib.rocks/image?repo=jarod4hunt/CSC395_Team-5)
 
 ## License
 This project is licensed under the Apache License.
