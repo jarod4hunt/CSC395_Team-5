@@ -43,6 +43,9 @@ The app is built using Python's Flask framework and integrates with Ollama's AI 
 
 6) Enjoy!
 
+## System Architecture and Data Flow
+![Example Image](example_image.png)
+
 ## Contributors
 Thanks to the following people who have contributed to this project:
 <table>
