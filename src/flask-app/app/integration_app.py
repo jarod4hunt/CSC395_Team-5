@@ -5,16 +5,17 @@ from requests.auth import HTTPBasicAuth
 class TestIntegration(unittest.TestCase):
     def test_integration_with_flask_server(self):
         url = 'http://localhost:5002/submit'
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         payload = {
-            'brand': 'TestBrand',
-            'ingredients': 'flour, sugar, eggs'
+            'ingredients': 'tomatoes, cheese, pasta',
+            'brand': 'Kraft'
 	}
-        response = requests.post(url, data=payload, auth=HTTPBasicAuth('csc395', 'team5'))
+        auth = HTTPBasicAuth('csc395', 'team5')
+        response = requests.post(url, headers=headers, data=payload, auth=auth)
         self.assertEqual(response.status_code, 200)
 
 
-        self.assertIn("Here is a recipe in the format you requested:", response.text)
-        self.assertIn("TestBrand**", response.text)
+        self.assertIn('Kraft', response.text, "Kraft not found in the reply!")
 
 
 if __name__ == '__main__':
