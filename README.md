@@ -31,11 +31,10 @@
 ...
 ## Contributors
 Thanks to the following people who have contributed to this project:
-@jarod4hunt
-@anshi0304
-@hartelaneeqa
-@nickkeller62
-@justinGmail
+- [@jarod4hunt](https://github.com/jarod4hunt)
+- [@anshi0304](https://github.com/anshi0304)
+- [@hartelaneeqa](https://github.com/hartelaneeqa)
+- [@nickkeller62](https://github.com/nickkeller62)
 
 ## License
 This project is licensed under the Apache License.
