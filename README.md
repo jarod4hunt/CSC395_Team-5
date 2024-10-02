@@ -26,10 +26,10 @@ The app is built using Python's Flask framework and integrates with Ollama's AI 
 
 3) Run the startup script:         
 <pre>
-    Linux/macOS:                                Windows:                                          
-    - cd into CSC395_Team-5/src                 - cd into CSC395_Team-5/src
-    - run './startup_script.sh'                 - run 'docker-compose up --build -d'
-                                                - run 'docker exec -it src-ollama-1 ollama run llama3' 
+    Linux/macOS:                      Windows:                                          
+    - cd into CSC395_Team-5/src       - cd into CSC395_Team-5/src
+    - run './startup_script.sh'       - run 'docker-compose up --build -d'
+                                      - run 'docker exec -it src-ollama-1 ollama run llama3' 
     
     This step will take a while the first time it is ran as the AI model is several GBs of data.
 </pre>
