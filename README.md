@@ -5,6 +5,8 @@ Ollama Recipe Builder is a web application designed to help users generate creat
 
 The app is built using Python's Flask framework and integrates with Ollama's AI capabilities to dynamically generate recipes based on user input. It's designed to be lightweight, easily customizable, and scalable for any user or organization.
 
+![Example Image](example_output.png)
+
 ## Features
 - Dynamic Recipe Generation: Users can input a list of ingredients and select a brand to generate a customized recipe using Ollama's AI model.
 - Brand-Themed Recipes: The generated recipes include brand-specific information, making it ideal for companies looking to promote their products through engaging recipes.
@@ -44,7 +46,8 @@ The app is built using Python's Flask framework and integrates with Ollama's AI 
 6) Enjoy!
 
 ## System Architecture and Data Flow
-![Example Image](example_image.png)
+![Example Image](example_output.png)
+
 
 ## Contributors
 Thanks to the following people who have contributed to this project:
