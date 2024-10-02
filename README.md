@@ -31,10 +31,15 @@
 ...
 ## Contributors
 Thanks to the following people who have contributed to this project:
-- [@jarod4hunt](https://github.com/jarod4hunt)
-- [@anshi0304](https://github.com/anshi0304)
-- [@hartelaneeqa](https://github.com/hartelaneeqa)
-- [@nickkeller62](https://github.com/nickkeller62)
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/jarod4hunt"><img src="https://avatars.githubusercontent.com/jarod4hunt" width="100px;" alt=""/><br /><sub><b>@jarod4hunt</b></sub></a></td>
+    <td align="center"><a href="https://github.com/anshi0304"><img src="https://avatars.githubusercontent.com/anshi0304" width="100px;" alt=""/><br /><sub><b>@anshi0304</b></sub></a></td>
+    <td align="center"><a href="https://github.com/hartelaneeqa"><img src="https://avatars.githubusercontent.com/hartelaneeqa" width="100px;" alt=""/><br /><sub><b>@hartelaneeqa</b></sub></a></td>
+    <td align="center"><a href="https://github.com/nickkeller62"><img src="https://avatars.githubusercontent.com/nickkeller62" width="100px;" alt=""/><br /><sub><b>@nickkeller62</b></sub></a></td>
+  </tr>
+</table>
 
 ## License
 This project is licensed under the Apache License.
