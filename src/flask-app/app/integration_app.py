@@ -4,7 +4,7 @@ from requests.auth import HTTPBasicAuth
 
 class TestIntegration(unittest.TestCase):
     def test_integration_with_flask_server(self):
-        url = 'http://localhost:5002/submit'
+        url = 'http://localhost:5000/submit'
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         payload = {
             'ingredients': 'tomatoes, cheese, pasta',
