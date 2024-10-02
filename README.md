@@ -31,7 +31,7 @@
 ...
 ## Contributors
 Thanks to the following people who have contributed to this project:
-![Contributors](https://contrib.rocks/image?repo=jarod4hunt/CSC395_Team-5)
+[![GitHub contributors](https://img.shields.io/github/contributors/jarod4hunt/CSC395_Team-5.svg)](https://github.com/jarod4hunt/CSC395_Team-5/graphs/contributors)
 
 ## License
 This project is licensed under the Apache License.
