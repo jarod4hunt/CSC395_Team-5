@@ -32,7 +32,7 @@
 ## Contributers
 
 ## License
-...
+This project is licensed under the Apache License.
 
 
 Steps to run application:
