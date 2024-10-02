@@ -3,7 +3,7 @@
 ## Features
 ...
 ## Installation
-1) Install Docker and Git:
+    1) Install Docker and Git:
         - Ask ChatGPT to walk you through the installition steps for your operating system.
         - Make sure you are properly logged into Docker ('docker login')
     
@@ -27,12 +27,10 @@
 
     6) Enjoy!
 
-## Usage
-...
 ## Screenshots
 ...
-## Contributing
-...
+## Contributers
+
 ## License
 ...
 
