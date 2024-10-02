@@ -31,6 +31,9 @@ class BasicTest(unittest.TestCase):
     
 		assert result == ["Recipe Title:", "Fun Tagline"]
 
+
+
+
 	def test_stream_ollama_response_failure(self):
 		prompt = "Make a cake"
 		mock_response = MagicMock()
@@ -67,7 +70,41 @@ class BasicTest(unittest.TestCase):
 			"Error parsing JSON: b'invalid_json_line'"
 		])
 
-	
+	def test_stream_ollama_response_timeout(self):
+
+
+		prompt = "Make a cake"
+
+
+		mock_post = MagicMock()
+		mock_post.side_effect = requests.exceptions.Timeout
+
+		with patch('requests.post', mock_post):
+			result = list(stream_ollama_response(prompt))
+
+		self.assertEqual(result, ["Request failed: "])
+
+	def test_stream_ollama_response_invalid_status_code(self):
+
+		prompt = "Make a cake"
+
+		mock_response = MagicMock()
+		mock_response.status_code = 403
+
+		mock_response.text = "Forbidden"
+
+		mock_post = MagicMock()
+
+		mock_post.__enter__.return_value = mock_response
+
+		mock_post.__exit__.return_value = None
+
+		with patch('requests.post', return_value=mock_post):
+
+			result = list(stream_ollama_response(prompt))
+
+		self.assertEqual(result, ["Error communicating with Ollama: 403 Forbidden"])
+
 if __name__== '__main__':
 	unittest.main()
 
