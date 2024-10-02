@@ -1,8 +1,19 @@
-# CSC395_Team-5
+## Table of Contents
 
-Steps to run application:
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Screenshots](#screenshots)
+6. [Contributing](#contributing)
+7. [License](#license)
 
-    1) Install Docker and Git:
+## Introduction
+...
+## Features
+...
+## Installation
+1) Install Docker and Git:
         - Ask ChatGPT to walk you through the installition steps for your operating system.
         - Make sure you are properly logged into Docker ('docker login')
     
@@ -25,4 +36,18 @@ Steps to run application:
         - password: team5
 
     6) Enjoy!
+    
+## Usage
+...
+## Screenshots
+...
+## Contributing
+...
+## License
+...
+
+
+Steps to run application:
+
+    
 
