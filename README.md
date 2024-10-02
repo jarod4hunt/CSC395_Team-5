@@ -11,10 +11,10 @@
         - Open a terminal window and run 'git clone https://github.com/jarod4hunt/CSC395_Team-5.git'
 
     3) Run the startup script:          
-        Linux:                          macOS:                          Windows:                        
-        - cd into CSC395_Team-5/src     - cd into CSC395_Team-5/src     - cd into CSC395_Team-5/src
-        - run './startup_script.sh'     - run './startup_script.sh'     - run 'docker-compose up --build -d'
-                                                                        - run 'docker exec -it src-ollama-1 ollama run llama3'  
+        Linux/macOS:                    Windows:                        
+        - cd into CSC395_Team-5/src     - cd into CSC395_Team-5/src
+        - run './startup_script.sh'     - run 'docker-compose up --build -d'
+                                        - run 'docker exec -it src-ollama-1 ollama run llama3'  
 
     **This step will take a while the first time it is ran as the AI model is several GBs of data.
     **Subsequent runs will start up very fast.
@@ -29,13 +29,9 @@
 
 ## Screenshots
 ...
-## Contributers
+## Contributors
+Thanks to the following people who have contributed to this project:
+![Contributors](https://contrib.rocks/image?repo=yourusername/yourrepository)
 
 ## License
 This project is licensed under the Apache License.
-
-
-Steps to run application:
-
-    
-
