@@ -1,13 +1,3 @@
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Screenshots](#screenshots)
-6. [Contributing](#contributing)
-7. [License](#license)
-
 ## Introduction
 ...
 ## Features
@@ -36,7 +26,7 @@
         - password: team5
 
     6) Enjoy!
-    
+
 ## Usage
 ...
 ## Screenshots
