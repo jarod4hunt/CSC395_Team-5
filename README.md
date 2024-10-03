@@ -43,18 +43,14 @@ The app is built using Python's Flask framework and integrates with Ollama's AI 
 
 7) Enjoy!
 
-## System Architecture and Data Flow
-This section outlines the architecture of the AgIle Recipe Maker and the flow of data within the system. The application is designed to efficiently interact with the Ollama API to generate recipe suggestions based on user input.
-
-Architecture Overview
+## Architecture Overview
 The system follows a client-server architecture, where the client (web interface) interacts with a Flask backend. The backend processes user requests and communicates with the Ollama API to fetch recipe data. The architecture is modular, allowing for easy scalability and maintenance.
 
 Data Flow
-1.  User Input: Users provide ingredients and brand preferences via the web interface.
+1. User Input: Users provide ingredients and brand preferences via the web interface.
 2. API Request: The Flask server constructs a prompt using the provided information and sends it to the Ollama API.
 3. Response Handling: The server receives a response from the API, processes it, and returns the formatted recipe to the user.
 4. Display: The recipe is displayed on the client-side, enabling users to view and interact with the suggested recipes.
-
 
 This architecture ensures a seamless experience for users, allowing for quick and dynamic recipe generation based on their preferences.
 
