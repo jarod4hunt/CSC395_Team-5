@@ -1,7 +1,7 @@
-# AgIle Recipe Builder
+# AgIle Recipe Maker
 
 ## Introduction
-AgIle Recipe Builder is a web application designed to help users generate creative, brand-themed recipes based on a list of ingredients. By leveraging the powerful language model Ollama, this app provides tailored recipes in a fun and engaging format, making meal preparation easier and more enjoyable. Whether you're a foodie looking for inspiration or a brand aiming to showcase your products through recipes, the AgIle Recipe Builder allows users to select a brand, input ingredients, and receive a customized recipe with detailed instructions.
+AgIle Recipe Maker is a web application designed to help users generate creative, brand-themed recipes based on a list of ingredients. By leveraging the powerful language model Ollama, this app provides tailored recipes in a fun and engaging format, making meal preparation easier and more enjoyable. Whether you're a foodie looking for inspiration or a brand aiming to showcase your products through recipes, the AgIle Recipe Maker allows users to select a brand, input ingredients, and receive a customized recipe with detailed instructions.
 
 The app is built using Python's Flask framework and integrates with Ollama's AI capabilities to dynamically generate recipes based on user input. It's designed to be lightweight, easily customizable, and scalable for any user or organization.
 
@@ -44,7 +44,7 @@ The app is built using Python's Flask framework and integrates with Ollama's AI 
 7) Enjoy!
 
 ## System Architecture and Data Flow
-This section outlines the architecture of the AgIle Recipe Builder and the flow of data within the system. The application is designed to efficiently interact with the Ollama API to generate recipe suggestions based on user input.
+This section outlines the architecture of the AgIle Recipe Maker and the flow of data within the system. The application is designed to efficiently interact with the Ollama API to generate recipe suggestions based on user input.
 
 Architecture Overview
 The system follows a client-server architecture, where the client (web interface) interacts with a Flask backend. The backend processes user requests and communicates with the Ollama API to fetch recipe data. The architecture is modular, allowing for easy scalability and maintenance.
