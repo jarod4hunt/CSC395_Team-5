@@ -57,6 +57,7 @@ Data Flow
 
 
 This architecture ensures a seamless experience for users, allowing for quick and dynamic recipe generation based on their preferences.
+
 ![Example Image](images/data_flow.png)
 
 
