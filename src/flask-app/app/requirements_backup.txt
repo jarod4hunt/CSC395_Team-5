@@ -1,0 +1,9 @@
+ollama==0.2.0
+cryptography==3.4.8
+secretsmanager
+beautifulsoup4
+requests
+black==23.1.0
+numpy==2.0
+pandas==2.2.2
+psutil==5.9.1
